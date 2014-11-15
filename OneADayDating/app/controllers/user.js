@@ -1,3 +1,0 @@
-function UserCtrl($scope) {
-    // example
-}
