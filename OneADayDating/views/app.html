@@ -1,5 +1,19 @@
+@{layout('')}
+@{meta('title', 'description', 'keywords')}
+
+@{ng('angular', 'resource', 'route')}
+
+<!-- /app/css/ -->
+@{ngStyle('app')}
+
+<!-- cdnjs -->
+@{ngLocale('en-us')}
+
+<!-- /app/controllers/ -->
+@{ngController('home', 'user')}
+
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     @{meta}
     <meta charset="utf-8" />
@@ -8,14 +22,11 @@
     <meta name="viewport" content="width=1024, user-scalable=yes" />
     <meta name="robots" content="all,follow" />
     @{head}
-    @{css('default.css')}
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    @{js('default.js')}
     @{favicon('favicon.ico')}
 </head>
 <body>
 
-    @{body}
+    <div ng-controller="HomeCtrl">{{ name }}</div>
 
 </body>
 </html>
