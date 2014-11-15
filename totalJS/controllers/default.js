@@ -1,8 +1,8 @@
 exports.install = function(framework) {
-    framework.route('/', view_homepage);
+    framework.route('/*', view_app);
 };
 
-function view_homepage() {
+function view_app() {
     var self = this;
-    self.view('homepage');
+    self.view('app');
 }
