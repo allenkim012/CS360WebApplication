@@ -1,0 +1,9 @@
+default-ip               : 127.0.0.1
+default-port             : 8000
+
+
+// CloudFlare cdnjs
+angular-version          : 1.2.18
+
+// CloudFlare cdnjs
+angular-i18n-version     : 1.2.15
