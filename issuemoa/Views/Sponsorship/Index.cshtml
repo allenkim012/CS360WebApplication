@@ -1,0 +1,31 @@
+﻿
+@Styles.Render("~/Content/Sponsorship.css")
+
+
+<div class="sponsorship">
+    <div class="sponsorship-title">
+        
+    </div>
+    <div class="sponsorship-inputs">
+        <div class="sponsorship-dropdown">
+            <div style="height:20px">후원할 곳</div>
+            @*@Html.DropDownList("Culture Code", new SelectList("세월호", "911"))*@
+            <select>
+                <option>세월호 참사</option>
+                <option>911</option>
+                <option>천안함 어택</option>
+                <option>박근혜 탄핵</option>
+            </select>
+        </div>
+        <div class="sponsorship-dropdown">
+            <div style="height:20px">사용할 포인트</div>
+            <input />
+        </div>
+        <div class="sponsorship-dropdown">
+            <div style="height:20px"></div>
+            <button>후원하기</button>
+        </div>
+    </div>
+    @*@Html.DropDownListFor<>*@
+    <div style="height:100px"></div>
+</div>

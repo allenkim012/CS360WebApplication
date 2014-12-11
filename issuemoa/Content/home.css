@@ -1,0 +1,107 @@
+﻿.big-issue
+{
+	background: transparent url('/images/세월호.jpg') 0 0 no-repeat fixed;
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/세월호.jpg', sizingMethod='scale');
+    height: 400px;
+    width: 100%;
+    margin-bottom: 3em;
+    /*display: table-cell;*/
+    cursor: pointer;
+    line-height: 1.5em;    
+    text-align: right;
+    vertical-align: middle;
+}
+
+.banner-head 
+{
+	position: relative;
+	top: 30%;
+	right: 10px;
+    margin-bottom: 0;
+    font-size: 2em;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 1px 1px black;
+    margin-right: 10px;
+}
+.banner-head2 
+{
+	position: relative;
+	top: 35%;
+	right: 10px;
+    margin-bottom: 0;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 1px 1px black;
+    margin-right: 10px;
+}	
+.issue-slider
+{
+	color: white;
+	height: 200px;
+	width: 100%;
+	/*background-color: #519251;*/
+	background-color: rgb(15, 15, 15);
+	margin-top: -48px;
+	display: inline-block;
+	white-space:nowrap;
+}
+.slider-prev
+{
+	cursor: pointer;
+	display: inline-block;
+	list-style-type: none;
+	background-color: rgba(255, 255, 255, 0.30);
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 0;
+	border-radius: 50px;
+	margin-top: 55px;
+	text-align: center;
+	font-size: 41px;
+	font-size: 44px;
+	font-family: serif;
+	color: black;
+}
+.slider-next
+{	cursor: pointer;
+	display: inline-block;
+	list-style-type: none;
+	background-color: rgba(255, 255, 255, 0.35);
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 0;
+	border-radius: 50px;
+	margin-top: 55px;
+	font-size: 41px;
+	font-size: 44px;
+	font-family: serif;
+	color: black;
+}
+.slider-next:hover, .slider-prev:hover
+{	
+	background-color: rgba(255, 255, 255, 0.85);
+	font-weight: bolder;
+}
+.slider-content
+{
+	font-family: "Nanum Myeongjo", sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	text-align: center;
+	display: inline-block;
+	list-style-type: none;	
+	margin: 20px;
+	cursor: pointer;;
+	/*position: absolute;
+	left: 50px*/
+	white-space:nowrap;
+}
+.issue-image
+{
+	height: 120px;
+}

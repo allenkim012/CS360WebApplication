@@ -1,0 +1,32 @@
+﻿h1 {
+    padding-left:20px;
+}
+
+.sponsorship {
+    /*padding-top: 50px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 15px;*/
+    padding:40px;
+    
+}
+
+.sponsorship-title{
+    height:300px;
+    background-image:url("http://www.soongduk.or.kr/_upload/kntools/pagemaker/1835/%ED%9B%84%EC%9B%90%EC%95%88%EB%82%B4.png");
+    background-repeat: no-repeat;
+    background-size:800px 200px
+}
+
+.sponsorship-inputs{
+    padding-left:40px;
+    width:1000px;
+    height:30px;
+
+}
+
+.sponsorship-dropdown {
+    width:30%;
+    height:30%;
+    float:left;
+}

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Articles";
+}
+
+<style>
+    #sub-menu div {
+        display: inline;
+        font-size: x-large;
+    }
+
+    #big-issue-pic {
+        text-align: center;
+        margin-bottom: -3px;
+    }
+</style>
+
+
+
+<div id="big-issue-pic">
+    <img src="http://sewolho416.org/wordpress/wp-content/uploads/2014/10/photo_2014-10-31_23-37-58.jpg" alt="http://sewolho416.org/3247" width="1090" height="639">
+</div>
+
+<div id="issue-container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="pure-menu pure-menu-open pure-menu-horizontal">
+            <ul>
+                <li class="pure-menu-selected">@Html.ActionLink("세월호", "Issues", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="pure-menu-selected">@Html.ActionLink("관련기사", "Articles", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="pure-menu-selected">@Html.ActionLink("토론의 장", "Discussion", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { area = "" }, new { @class = "navbar-brand" })</li>
+            </ul>
+        </div>
+    </div>
+    <div id="context-area">
+        <h2>Related Articles</h2>
+        <img src="http://www.egovframe.go.kr/wiki/lib/exe/fetch.php?media=egovframework:com:cop:bbsuselist.jpg" width="1090" />
+    </div>
+</div>

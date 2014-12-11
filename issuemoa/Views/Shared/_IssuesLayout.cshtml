@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 이슈모아</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+    @Styles.Render("~/Content/pure-min.css")
+
+</head>
+<body>
+    <div id="wrapper" style="width:1090px; margin:0 auto; background:white">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal">
+                    @Html.ActionLink(" ", "", "", new { area = "" }, new { @class = "pure-menu-heading" })
+                    <ul>
+                        <li class="pure-menu-selected">@Html.ActionLink("세월호", "Issues", "Issues", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        <li class="pure-menu-selected">@Html.ActionLink("오늘의 이슈", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <div class="ad-foot">
+                <span><a class="ad-foot-content" href="http://boooki.com" target="_blank" style="background:url('http://s2.ilwar.com/s/i/bar_boooki.png') 0 0 no-repeat;width:728px;height:90px;">boooki</a></span>
+            </div>
+
+            <footer>
+                <p style="margin:20px;">&copy; @DateTime.Now.Year - 이슈모아</p>
+            </footer>
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </div>
+</body> 
+</html>

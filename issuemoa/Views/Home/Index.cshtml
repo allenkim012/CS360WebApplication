@@ -1,0 +1,40 @@
+﻿
+@Styles.Render("~/Content/home.css")
+@{ViewBag.Title = "세상의 이슈를 한눈에";}
+<div class="home-container">
+    <div class="big-issue">
+        <span class="banner-head">
+            This is Issue.</span>
+        <br />
+        <span class="banner-head2">
+            Wow 로렘 입섬!<br />
+            달러 싯 어멧 콘어쩌고!
+        </span>
+    </div>
+    <div class="issue-slider">
+        <ul>
+            <li class="slider-prev"><</li>
+            @for (int i = 0; i < ViewBag.issues.Count;i++)
+            {
+                <li id="slider-content_@i" class="slider-content"><img id="issue-image_@i" class="issue-image" src="~/Images/@ViewBag.issues[i]" /><br />@ViewBag.issues[i]</li>
+            }
+            <li class="slider-next">&nbsp;></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //Todo: if newwidth > $(document).width() * 0.85 -50, send to next page(?).
+	$(document).ready(function(){
+	    $('.big-issue').click(function () {
+	        window.location.href = '/Issues/Issues';
+	    });
+
+	    $('.issue-image').click(function (e) {
+	        $('.big-issue').css('background', "transparent url('" + e.currentTarget.src + "') 0 0 no-repeat");
+	        $('.big-issue').css('background-size', "cover");
+	    });
+	});
+		
+   	
+</script>
