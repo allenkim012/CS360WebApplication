@@ -6,22 +6,48 @@ using System.Web.Mvc;
 
 namespace issuemoa.Controllers
 {
+    using Models.Sponsorship;
     public class SponsorshipController : Controller
     {
+        public int selectedId { get; set; }
         // GET: Sponsorship
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(int? itemId)
         {
+            //defalut
+            selectedId = 1;
+            if(itemId.HasValue)
+            {
+                selectedId = itemId.Value;
+            }
+
             ViewBag.Title = "후원하기";
-            return View();
+            return View(new SponsorshipModel(selectedId));
+        }
+        
+
+        [HttpPost]
+        public ActionResult Index(string postAction, SponsorshipModel postedValues)
+        {
+            if(postedValues.Donate())
+                return RedirectToAction("Thanks");
+            return View(postedValues);
         }
 
-        // GET: Sponsorship/Details/5
+
+        [HttpGet]
+        public ActionResult Thanks()
+        {
+            return View(new ThanksModel());
+        }
+
+        [HttpGet]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Sponsorship/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -65,7 +91,7 @@ namespace issuemoa.Controllers
             }
         }
 
-        // GET: Sponsorship/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             return View();

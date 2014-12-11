@@ -3,21 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using issuemoa.Models.Home;
+using issuemoa.DAL;
+using issuemoa.Models.Global;
+using issuemoa.Models.Database;
 
 namespace issuemoa.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
-            List<string> issues = new List<string>(); //TODO: 모델에서 불러와야 함.
-            issues.Add("세월호.jpg");
-            issues.Add("부정선거.jpg");
-            issues.Add("개인정보.jpg");
+            //using(var db = new IssueMoaDB())
+            //{
+            //    List<User> users = db.Users.ToList();
+            //    ViewBag.p = users.First().Password;
+            //}
+            
+            HomeModel hm = new HomeModel();
 
-            ViewBag.issues = issues;
-            return View();
+            return View(hm);
+        }
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            HomeModel hm = new HomeModel();
+
+            return RedirectToAction("Index");
         }
     }
 }

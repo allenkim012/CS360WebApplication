@@ -1,0 +1,47 @@
+﻿@using issuemoa.Models.Issues;
+@model IssueModel
+
+@{
+    ViewBag.Title = "Issues";
+}
+
+<style>
+    #sub-menu div {
+        display: inline;
+        font-size: x-large;
+    }
+
+    #big-issue-pic {
+        text-align: center;
+        margin-bottom: -3px;
+    }
+</style>
+
+<div id="wrapper" style="max-width:1090px; width:100%; margin:0 auto; background:white">
+    <div id="big-issue-pic">
+        <img src="~/Images/@Model.SubNavBarModel.ImageUrl" width="1090" height="639">
+    </div>
+
+    <div id="issue-container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="pure-menu pure-menu-open pure-menu-horizontal">
+                <ul>
+                    <li class="pure-menu-selected">@Html.ActionLink(@Model.SubNavBarModel.IssueName, "Index", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("관련기사", "Articles", new { itemId = @Model.SubNavBarModel.ArticleBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("토론의 장", "Discussion", new { itemId = @Model.SubNavBarModel.DiscussionBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                </ul>
+            </div>
+        </div>
+        <div id="context-area">
+            <h2>@Model.IssueSummary.SummaryTitle</h2>
+            @Model.IssueSummary.Summary
+        </div>
+        <hr />
+        <div id="point-area">
+            <h2>기부 포인트 현황</h2>
+            @Model.Issue.DonatedPoints
+        </div>
+        <hr />
+    </div>
+</div>

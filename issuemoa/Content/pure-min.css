@@ -920,7 +920,7 @@ table {
 }
 .pure-menu-heading
 {
-	background: url("/Images/temp_logo.png") no-repeat top left;	
+	background: url("/images/others/temp_logo.png") no-repeat top left;	
 	text-indent:-30000px;
 	width: 40px;
 	height: 19px;
@@ -930,13 +930,216 @@ table {
 {
     display: inline-block;
 }*/
-.signin
+#userContainer
 {
     display: inline-block;   
     float: right;
+    color: #aaaaaa;
+    margin-top: 10px;
+    margin-right: 30px;
+    cursor: pointer;
+    width: 150px;    
+}
+#user
+{
+    padding: 0;
+    line-height: 1;
+}
+
+#user:hover
+{
+    color: white;
+}
+.signin:hover
+{
+    color: white;
 }
 #signin-link
 {
     color: rgb(230,230,230);
     margin-right: 30px;
+}
+#sign_up_in_main
+{
+    border: solid;
+    border-color: rgb(20,160,70);
+    border-radius: 10px;
+    height: 300px;
+    width: 500px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -250px;
+    display: none;
+    z-index: 6;
+}
+#window_cover
+{
+    position: absolute;
+    height: 300%;
+    width: 100%;
+    background-color: rgba(10,10,10, 0.8);
+    display: none;    
+    z-index: 5;
+}
+
+.signForm
+{
+    font-size: 0.8em;
+}
+.signForm form td:nth-child(1) {
+    width: 115px;
+    text-align: right;
+    padding-right: 10px;
+}
+.signForm form td:nth-child(2) {
+    width: 205px;
+    text-align: left;
+}
+.signForm form tr:last-child td {
+    text-align: center;
+}
+
+.signForm .loginBox {
+    position: relative;
+    margin-top: 3em;
+    margin-left: calc(50% - 150px);
+}
+
+.signForm .loading {
+    vertical-align: top;
+}
+.signForm .loading div {
+    position: absolute;
+    float: right;
+    display: inline;
+}
+.signForm .loading div img {
+    width: 16px;
+}
+
+.signForm #login {
+    display: block;
+    width: 300px;
+    text-align: center;
+}
+.signForm #register {
+    display: none;
+    margin-left: calc(50% - 200px);
+    width: 400px;
+}
+.signForm #register_link {
+    margin-right: 8px;
+}
+.signForm #register_link:hover {
+    cursor: pointer;
+    color: rgb(50,160,170);
+}
+.signForm #login_link:hover {
+    cursor: pointer;
+    color: rgb(50,160,170);
+}
+.signForm #ForgotPasswordLink:hover {
+    cursor: pointer;
+    color: rgb(50,160,170);
+}
+.signForm #password_req_prompt {
+    background: white;
+    width: 205px;
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    top: 100px;
+    left: -240px;
+    position: absolute;
+    display: none;
+}
+.signForm #password_req_prompt ul {
+    margin: 0px;
+}
+.signForm input {
+    margin: 4px
+}
+.signForm table {
+    margin: 5px;
+    width: 400px;
+}
+.signForm #signin {
+    margin-left: -15px;
+}
+.signForm .simple-button, #login_link, #registerHead, #login_link2 {
+    margin-left: 120px;
+}
+.signForm #ForgotPassword {
+
+}
+.signForm #SubmitReset {
+    margin-left: 65px;
+    margin-top: 20px;
+}
+.signForm #login_link2 {
+    margin-left: 90px;
+}
+.signForm input[type="text"]
+{    
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    outline: none;    
+}
+.signForm input[type="password"]
+{
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    outline: none;    
+}
+.signForm button
+{
+    background-color: #e4e1d5;
+    text-decoration: none;
+    border: 2px solid #fff;
+    color: #111;
+    color: rgba(0,0,0,.9);
+    font-size: 100%;
+    font-weight: 800;
+    padding: .5em 1em;
+    border-radius: 2px;
+    line-height: normal;
+    margin-top: 1em;
+    display: inline-block;
+    box-shadow: 0px 2px 2px #999;
+}
+.signForm button:hover 
+{
+    color: #444;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0, 0, 0, .05)), to(rgba(0,0,0, .1)));
+    background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .1));
+    background-image: -o-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+}
+.sns-icon
+{
+    width: 30px;
+    margin-left: 10px;
+}
+.instruction
+{
+    margin: 20px;
+    margin-top: 30px;
+    background-color: rgba(255,255,255,0.5);
+    width: 800px;
+    border-radius: 20px;
+    padding: 10px;
+    margin-left: -400px;
+    position: relative;
+    left: 50%;
 }

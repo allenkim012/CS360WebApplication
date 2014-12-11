@@ -1,31 +1,46 @@
-﻿
+﻿@using issuemoa.Models.Sponsorship;
+@model SponsorshipModel
 @Styles.Render("~/Content/Sponsorship.css")
-
-
-<div class="sponsorship">
-    <div class="sponsorship-title">
-        
-    </div>
-    <div class="sponsorship-inputs">
-        <div class="sponsorship-dropdown">
-            <div style="height:20px">후원할 곳</div>
-            @*@Html.DropDownList("Culture Code", new SelectList("세월호", "911"))*@
-            <select>
-                <option>세월호 참사</option>
-                <option>911</option>
-                <option>천안함 어택</option>
-                <option>박근혜 탄핵</option>
-            </select>
-        </div>
-        <div class="sponsorship-dropdown">
-            <div style="height:20px">사용할 포인트</div>
-            <input />
-        </div>
-        <div class="sponsorship-dropdown">
+@if (Session["UserId"] != null)
+{
+    using (Html.BeginForm())
+    {
+        <div class="sponsorship" align="center">
+            <div class="sponsorship-title">
+            </div>
+            <div class="sponsorship-inputs">
+                <div class="sponsorship-dropdown">
+                    <div style="height:20px">후원할 곳</div>
+                    @Html.DropDownListFor(x => x.SelectedIssue, Model.IssueSelectList)
+                </div>
+                <div class="sponsorship-dropdown">
+                    <div style="height:20px">사용할 포인트</div>
+                    @Html.TextBoxFor(x => x.DoantedPoint, new { @Value = "" , maxlength="9"})
+                </div>
+                <div class="sponsorship-dropdown">
+                    <div style="height:20px"></div>
+                    <input type="submit" value="후원하기" />
+                </div>
+            </div>
             <div style="height:20px"></div>
-            <button>후원하기</button>
+            <div style="color:red">@Model.message</div>
+            
         </div>
-    </div>
-    @*@Html.DropDownListFor<>*@
-    <div style="height:100px"></div>
-</div>
+    }//end using
+}
+
+else
+{
+    <script>
+        $(document).ready(function () {
+
+            $('#login_form').hide();
+            $('#window_cover').show();
+            $('#sign_up_in_main').show(300, function () { $('#login_form').show(); });
+            $('body').css('overflow', 'hidden');
+
+        });
+
+    </script>
+}
+

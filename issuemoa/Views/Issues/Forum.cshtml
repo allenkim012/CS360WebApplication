@@ -1,0 +1,83 @@
+﻿@using issuemoa.Models.Issues;
+@model ForumModel
+@{
+    ViewBag.Title = "Forum";
+}
+
+<div id="wrapper" style="max-width:1090px; width:100%; margin:0 auto; background:white">
+    <div id="big-issue-pic">
+        <img src="~/Images/@Model.SubNavBarModel.ImageUrl" width="1090" height="639">
+    </div>
+
+    <div id="issue-container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="pure-menu pure-menu-open pure-menu-horizontal">
+                <ul>
+                    <li class="pure-menu-selected">@Html.ActionLink(@Model.SubNavBarModel.IssueName, "Index", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("관련기사", "Articles", new { itemId = @Model.SubNavBarModel.ArticleBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("토론의 장", "Discussion", new { itemId = @Model.SubNavBarModel.DiscussionBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                </ul>
+            </div>
+        </div>
+        <div id="forum">
+            <div class="pure-g">
+                <div class="pure-u-22-24"><h2>@Model.Title</h2></div>
+                @if (Session["UserId"] != null)
+                {
+                    if (Model.WriterId == (int)Session["UserId"])
+                    {
+                        using(Html.BeginForm("DeleteForum", "Issues"))
+                        { 
+                            @Html.HiddenFor(x=>x.BoardId)
+                            @Html.HiddenFor(x => x.BoardTypeId)
+                            @Html.HiddenFor(x => x.ForumId)
+                            <div class="pure-u-2-24" style="margin-top:20px;"><input type="submit" value="글 삭제" /></div>
+                        }
+                    }
+                }
+            </div>
+            <div id="forum-info">
+                <div id="forum-writer">작성자: @Model.Writer.UserName</div>
+                <div id="forum-view">조회수: @Model.ViewCount</div>
+                <div id="forum-upload-date">작성일: @Model.UploadDate</div>
+            </div>
+            <div id="forum-context">
+                <p>@Model.Text</p>
+            </div>
+            <div id="comment-section">
+                @using (Html.BeginForm("DeleteComment", "Issues"))
+                { 
+                    @Html.HiddenFor(x=>x.ForumId);
+                    foreach(CommentModel ThisComment in Model.Comments)
+                    {
+                        <div style="float:left">@ThisComment.WriterName</div>
+                        <div style="float:right">@ThisComment.UploadDate</div>
+                        @*<p>@ThisComment.LikeCount / @ThisComment.HateCount</p>*@
+                        <br/>
+                        <p>@ThisComment.Text</p>
+                        if (Session["UserId"] != null)
+                        { 
+                            if (ThisComment.WriterId == (int)Session["UserId"])
+                            {
+                                <button name="action" value="@ThisComment.CommentId">지우기</button>
+                            }
+                        }
+                        <hr/>
+                    }
+                }
+                @if (Session["UserId"] != null)
+                { 
+                    using (Html.BeginForm("WriteComment", "Issues"))
+                    {
+                        @Html.TextAreaFor(x => x.NewComment)
+                        @Html.HiddenFor(x => x.ForumId)
+                        <input type="submit" value="댓글 쓰기" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+@Styles.Render("~/Content/discussion.css")

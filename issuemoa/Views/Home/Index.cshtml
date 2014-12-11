@@ -1,40 +1,112 @@
-﻿
+﻿@using issuemoa.Models.Home;
+@model HomeModel
 @Styles.Render("~/Content/home.css")
+@Styles.Render("~/Content/flipclock.css")
+@Scripts.Render("~/Scripts/flipclock.js")
+
 @{ViewBag.Title = "세상의 이슈를 한눈에";}
 <div class="home-container">
     <div class="big-issue">
-        <span class="banner-head">
-            This is Issue.</span>
-        <br />
-        <span class="banner-head2">
-            Wow 로렘 입섬!<br />
-            달러 싯 어멧 콘어쩌고!
-        </span>
+        <div class="issue-summary">
+            <span class="banner-head">
+                This is Issue.
+            </span>
+            <br />
+            <span class="banner-head2">
+                Wow 로렘 입섬!<br />
+                달러 싯 어멧 콘어쩌고!
+            </span>
+        </div>
     </div>
     <div class="issue-slider">
         <ul>
             <li class="slider-prev"><</li>
-            @for (int i = 0; i < ViewBag.issues.Count;i++)
+            @for (int i = 0; i < Model.IssueSummaryList.Count; i++)
             {
-                <li id="slider-content_@i" class="slider-content"><img id="issue-image_@i" class="issue-image" src="~/Images/@ViewBag.issues[i]" /><br />@ViewBag.issues[i]</li>
+                <li id="slider-content_@i" class="slider-content"><img id="issue-image_@i" class="issue-image" src="~/Images/@Model.IssueSummaryList[i].Issue.ImageURL" /><br />@Model.IssueSummaryList[i].Issue.IssueTitle</li>
             }
             <li class="slider-next">&nbsp;></li>
         </ul>
     </div>
+    <span class ="show-total-points" style="font-size: 22px;margin: 0px -232px;padding-top : 35px;font-weight: 600;">지금까지 기부된 점수:</span><br />
+    <div class="show-total-points">
+        <span id="total-donated">@Model.getTotalDonatedPoint()</span>
+        <span class="points-text">포인트</span>
+    </div>
+    <div class="instruction">
+<pre>
+Q: 이슈모아란?
+A: 이슈모아는 세상의 이슈를 모아 정리해서 알려주는 정보 사이트입니다.
+
+Q: 왜 만들었나요?
+A: 씨에스삼육공 과제....이기도 하지만, 이슈가 한번 터지면 중구난방으로 여러가지 정보가 돌지만 이슈의 정확한 타임라인과 관련 기사가 제대로 정리되어 있는 곳이 없었더라..하는 이유입니다.
+
+Q: 후원하기란?
+A: 너님들이 이 사이트에서 활동하거나 광고 누르면 포인트가 쌓임, 그걸로 원하는 이슈에 포인트 기부할 수 있음. 
+기부된 포인트의 비율대로 광고 수익을 나눔(사이트 운영에 필요한 기본적인 비용을 제외하고). 
+사실상 광고 수익으로 후원하므로 광고를 팍팍 눌러주셔야 함.
+
+Q: 왜 막판에 반말함?
+A: 우리 교수님은 한국어를 읽지 않아. 그래서 자세한 설명이 귀찮...아! 혹여나 구글 번역을 돌리시면 안되는데.. 교수님 사랑합니다.
+</pre>
+    </div>
 </div>
 
 <script type="text/javascript">
-    //Todo: if newwidth > $(document).width() * 0.85 -50, send to next page(?).
-	$(document).ready(function(){
-	    $('.big-issue').click(function () {
-	        window.location.href = '/Issues/Issues';
-	    });
+    //Todo: if newwidth > $(document).width() * 0.85 -50, send to next page(?). //window.slide_loaded = 0;
+    var banner_head1s = [];
+    var banner_head2s = [];
+    @for (int i = 0; i < Model.IssueSummaryList.Count; i++)
+    {
+        @Html.Raw("banner_head1s.push(\"" + Model.IssueSummaryList[i].SummaryTitle + "\");\n");
+        @Html.Raw("banner_head2s.push(\"" + Model.IssueSummaryList[i].Summary + "\");\n");
+    }
 
-	    $('.issue-image').click(function (e) {
-	        $('.big-issue').css('background', "transparent url('" + e.currentTarget.src + "') 0 0 no-repeat");
-	        $('.big-issue').css('background-size', "cover");
-	    });
-	});
-		
-   	
+    $(document).ready(function () {
+        //default event:
+        $('.big-issue').css('background', "transparent url('/Images/@Model.IssueSummaryList.First().Issue.ImageURL') 0 0 / cover no-repeat");
+        $('.banner-head').text("@Model.IssueSummaryList.First().SummaryTitle");
+        $('.banner-head2').text("@Model.IssueSummaryList.First().Summary");
+        window.currentIssueId = 0;
+        //points total donated show:
+        var totalDonated = new FlipClock($('#total-donated'), @Model.getTotalDonatedPoint(), {
+            clockFace: 'Counter'
+        });
+
+        //slide content click event:
+        $('.issue-image').click(function (e) {
+            $('.big-issue').css('background', "transparent url('" + e.currentTarget.src + "') 0 0 no-repeat");
+            $('.big-issue').css('background-size', "cover");
+            window.currentIssueId = e.currentTarget.id.replace("issue-image_","");
+            $('.banner-head').text(banner_head1s[window.currentIssueId]);
+            $('.banner-head2').text(banner_head2s[window.currentIssueId]);
+        });
+        $('.slider-prev').click(function(){
+            if(window.currentIssueId == 0)
+                window.currentIssueId = @Model.IssueSummaryList.Count;
+            window.currentIssueId--;
+            $('.big-issue').css('background', "transparent url('" + $('#issue-image_'+window.currentIssueId).attr('src') + "') 0 0 no-repeat");
+            $('.big-issue').css('background-size', "cover");
+            $('.banner-head').text(banner_head1s[window.currentIssueId]);
+            $('.banner-head2').text(banner_head2s[window.currentIssueId]);
+        });
+        $('.slider-next').click(function(){
+            window.currentIssueId++;
+            if(window.currentIssueId == @Model.IssueSummaryList.Count)
+                window.currentIssueId = 0;
+            $('.big-issue').css('background', "transparent url('" + $('#issue-image_'+window.currentIssueId).attr('src') + "') 0 0 no-repeat");
+            $('.big-issue').css('background-size', "cover");
+            $('.banner-head').text(banner_head1s[window.currentIssueId]);
+            $('.banner-head2').text(banner_head2s[window.currentIssueId]);
+            
+        });
+
+        //main issue image linking
+        $('.big-issue').click(function (e) {
+            console.log(window.currentIssueId);
+            window.location.href = '@Url.Action("Index", "Issues")/Index/'+(parseInt(window.currentIssueId)+1);
+        });
+
+    });//document.ready()
 </script>
+

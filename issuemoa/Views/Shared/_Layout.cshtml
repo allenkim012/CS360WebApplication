@@ -1,37 +1,142 @@
-﻿<!DOCTYPE html>
+﻿@using issuemoa.Models.Global
+@using issuemoa.Models.Database
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 이슈모아</title>
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/Scripts/jquery-1.11.0.min.js")
+    @*@Scripts.Render("~/Scripts/jquery.scrollLock.js")*@
     @Styles.Render("~/Content/pure-min.css")
     
 </head>
 <body>
+    <div id='window_cover'></div>
+    <div class="signForm" id="sign_up_in_main">
+        <form id="login_form" method="post">
+            <table>
+                <tr><th colspan='2' align="center">로그인</th></tr>
+                <tr>
+                    <td align="right">아이디</td>
+                    <td>
+                        <input id="username_login" name="username_login" type="text" required="required" autofocus="autofocus" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="right">비밀번호</td>
+                    <td><input id="password_login" name="password_login" type="password" required="required" /></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <span id="loginResult"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan='2' align="right">
+                        <input type="submit" class='simple-button' id="signin" value="Sign-In"><span id="loginLoading" style="display: none;"><img style="width: 22px;position: relative;top: 5px;left: 12px;" src="~/Images/others/bx_loader.gif" alt="Ajax Indicator" /></span>
+
+                        <br><br><a id="register_link">가입하기</a>
+                        <a id="ForgotPasswordLink">비밀번호 찾기</a>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+        <form name="register_form" id="register_form" method="post" action="/Sign/register" onsubmit="return validateRegister(this)" style="display:none;">
+            <script>var uservalid = false; var emailvalid = false;</script>
+            <p id='form_error_msg' style="color:red; margin-left: 5px;"></p>
+            <table>
+                <tr><th id="RegisterHead" colspan='2' align="center">회원가입</th></tr>
+                <!-- <tr><td></tr></td> -->
+                <tr>
+                    <td>아이디</td>
+                    <td><input id="username" name="username" type="text" required="required" />
+                    <td class="loading"><div id="usernameLoading" style="display: none;"><img src="~/Images/others/bx_loader.gif" alt="Ajax Indicator" /></div>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <span id="usernameResult"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>비밀번호</td>
+                    <td>
+                        <input id="password" name="password" type="password" required="required" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>비밀번호 확인</td>
+                    <td>
+                        <input id="password-confirm" name="password_confirm" type="password" required="required" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>이름</td>
+                    <td>
+                        <input id="firstName" name="firstName" type="text" required="required" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>이메일</td>
+                    <td><input id="email" name="email" type="email" required="required" />
+                    <td class="loading"><div id="emailLoading" class="loading" style="display: none;"><img src="~/Images/others/bx_loader.gif" alt="Ajax Indicator" /></div></td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <span id="emailResult"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        <input class='simple-button' type="submit" value="Register">
+                        <br><br><a id="login_link">로그인으로 돌아가기</a>
+                    </td>
+                </tr>
+            </table>
+        </form>	
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="pure-menu pure-menu-open pure-menu-horizontal">
                 @Html.ActionLink(" ", "", "", new { area = "" }, new { @class = "pure-menu-heading" })
                 <ul>
-                    <li class="pure-menu-selected">@Html.ActionLink("세월호", "Issues", "Issues", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { area = "" }, new { @class = "navbar-brand" })</li>                    
+                    @foreach (Issue ThisIssue in TopIssue.TopIssues)
+                    {
+                        <li class="pure-menu-selected">@Html.ActionLink(@ThisIssue.IssueTitle, "Index", "Issues", new { itemId = @ThisIssue.IssueId }, new { @class = "navbar-brand" })</li>
+                    }
+                    <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { area = "" }, new { @class = "navbar-brand" })</li>
                     <li class="pure-menu-selected">@Html.ActionLink("오늘의 이슈", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
                 </ul>
-                <span class="signin">@Html.ActionLink("Welcome back, Seungwoo", "Index", "Home", new { area = "" }, new { @id = "signin-link" })</span>
+                <span id="userContainer">
+                    <span class="signin">로그인 / 가입하기</span>
+                </span>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         @*<hr />*@
+        <br />
         <div class="ad-foot">
             <span><a class="ad-foot-content" href="http://boooki.com" target="_blank" style="background:url('http://s2.ilwar.com/s/i/bar_boooki.png') 0 0 no-repeat;width:728px;height:90px;">boooki</a></span>
         </div>
-    
         <footer>
-            <p style="margin:20px;">&copy; @DateTime.Now.Year - 이슈모아</p>
+            <center><p style="margin:20px;">&copy; @DateTime.Now.Year - 이슈모아</p>
+            <a href="http://www.facebook.com"><img class="sns-icon" src="~/Images/others/facebook.png" style="margin-left: -10px; "/></a>
+            <a href="http://www.twitter.com"><img class="sns-icon" src="~/Images/others/Twitter-icon.png" /></a>
+            </center><br /><br />
         </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
@@ -39,3 +144,196 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var name = "@Session["Name"]";
+        if (name.length != 0)
+            $('#userContainer').html('@Html.ActionLink(@Session["Name"] + " : " + @Session["PointsGained"] + "포인트", "Logout", "Home", new { area = "" }, new { @id = "user"})');
+    });
+    $('.signin').click(function () {
+        $('#login_form').hide();
+        $('#window_cover').show();
+        $('#sign_up_in_main').show(300, function () { $('#login_form').show(); });
+        $('body').css('overflow', 'hidden');
+        $.scrollLock(true);
+    });
+    $('#window_cover').click(function () {
+        $('#register_form').hide();
+        $('#login_form').show();
+        $('#sign_up_in_main').hide(150);
+        $('#window_cover').hide();
+        $('body').css('overflow', '');
+        $.scrollLock(false);
+    });
+    $('#register_link').click(function () {
+        $('#login_form').hide();
+        $('#register_form').fadeIn(200);
+    });
+    $('#login_link').click(function () {
+        $('#register_form').hide();
+        $('#login_form').fadeIn(200);
+    });
+
+    //username, email check ajax
+    $(document).ready(function () {
+        $('#usernameLoading').hide();
+        $('#username').blur(function () {
+            $('#usernameLoading').show();
+            $.post("/Sign/checkUsernameNEmail", {
+                username: $('#username').val(),
+                check: "username"
+            }, function (response) {
+                $('#usernameResult').fadeOut();
+                setTimeout("finishAjax('usernameResult', '" + escape(response) + "')", 400);
+            });
+            return false;
+        });
+    });
+    $(document).ready(function () {
+        $('#emailLoading').hide();
+        $('#email').blur(function () {
+            $('#emailLoading').show();
+            $.post("/Sign/checkUsernameNEmail", {
+                email: $('#email').val(),
+                check: "email"
+            }, function (response) {
+                $('#emailResult').fadeOut();
+                setTimeout("finishAjax('emailResult', '" + escape(response) + "')", 400);
+            });
+            return false;
+        });
+    });
+    
+    $(document).ready(function () {
+        $('#loginLoading').hide();
+        $('#signin').click(function () {
+            $('#loginLoading').show();
+            $.post("/Sign/tryLogin", {
+                username_login: $('#username_login').val(),
+                password_login: $('#password_login').val()
+            }, function (response) {
+                $('#loginResult').fadeOut();
+                if (response == "true") {
+                    location.reload();
+                } else {
+                    setTimeout("finishAjax('loginResult', '" + escape(response) + "')", 400);
+                }
+            });
+            return false;
+        });
+    });
+
+    $(document).ready(function () {
+        $('#password_req_prompt').hide();
+        $('#password').focus(function () {
+            $('#password_req_prompt').show();
+        });
+        $('#password-confirm').focus(function () {
+            $('#password_req_prompt').show();
+        });
+
+    });
+
+    function finishAjax(id, response) {
+        $('#loginLoading').hide();
+        $('#usernameLoading').hide();
+        $('#emailLoading').hide();
+        $('#' + id).html(unescape(response));
+        $('#' + id).fadeIn();
+    } //finishAjax
+
+
+
+    /*
+    * Form validation:
+    *
+    * Author: Seungwoo Choi
+    *
+    * Require to fill all the input part is already included in <input> tag "required" is a HTML5 function that make it works for this.
+    * Therefore this validateRegister function is for right input Username and make sure the password is strong enough.
+    *
+    * Right now, username requires only letters and numbers. (!#$%^&*() kinds special character is not allowd)
+    *            password requires at least one number, lowecase letter, uppercase letter, and at least 6 long.
+    *
+    * See the details from error message.
+    *
+    * Relized the "required" attribute won't wonk with Safari nor IE.
+    */
+    function validateRegister(form) {
+        //check blank validation for Safari and IE
+        console.log("got here");
+        if (form.username.value == "" || form.username.value == null) {
+            $('#form_error_msg').text("Username must be entered");
+            form.username.focus();
+            return false;
+        }
+        if (form.password.value == "" || form.password.value == null) {
+            $('#form_error_msg').text("Password must be entered");
+            form.password.focus();
+            return false;
+        }
+        if (form.password_confirm.value == "" || form.password_confirm.value == null) {
+            $('#form_error_msg').text("Confirm Password must be entered");
+            form.password_confirm.focus();
+            return false;
+        }
+        if (form.firstName.value == "" || form.firstName.value == null) {
+            $('#form_error_msg').text("First Name must be entered");
+            form.firstName.focus();
+            return false;
+        }
+        if (form.email.value == "" || form.email.value == null) {
+            $('#form_error_msg').text("Email must be entered");
+            form.email.focus();
+            return false;
+        }
+
+        re = /^\w+$/;
+        if (!re.test(form.username.value)) {
+            $('#form_error_msg').text("Error: Username must contain only letters, numbers and underscores!");
+            form.username.focus();
+            return false;
+        }
+
+        if (form.password.value != "" && form.password.value == form.password_confirm.value) {
+            if (form.password.value.length < 6) {
+                $('#form_error_msg').text("Error: Password must contain at least six characters!");
+                form.password.focus();
+                return false;
+            }
+            if (form.password.value == form.username.value) {
+                $('#form_error_msg').text("Error: Password must be different from Username!");
+                form.password.focus();
+                return false;
+            }
+            re = /[0-9]/;
+            if (!re.test(form.password.value)) {
+                $('#form_error_msg').text("Error: password must contain at least one number (0-9)!");
+                form.password.focus();
+                return false;
+            }
+            re = /[a-z]/;
+            if (!re.test(form.password.value)) {
+                $('#form_error_msg').text("Error: password must contain at least one lowercase letter (a-z)!");
+                form.password.focus();
+                return false;
+            }
+            re = /[A-Z]/;
+            if (!re.test(form.password.value)) {
+                $('#form_error_msg').text("Error: password must contain at least one uppercase letter (A-Z)!");
+                form.password.focus();
+                return false;
+            }
+        } else {
+            $('#form_error_msg').text("Error: Please check that you've entered and confirmed your password!");
+            form.password.focus();
+            return false;
+        }
+        if (!uservalid || !emailvalid)
+            return false;
+
+        return true;
+    }
+</script>

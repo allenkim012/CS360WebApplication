@@ -16,7 +16,7 @@ namespace issuemoa
             routes.MapRoute(
                 name: "Issues",
                 url: "issues/{action}/{itemId}",
-                defaults: new { controller = "Issues", action = "Issues", itemId = UrlParameter.Optional }
+                defaults: new { controller = "Issues", action = "Index", itemId = UrlParameter.Optional }
             );
 
             routes.MapRoute(

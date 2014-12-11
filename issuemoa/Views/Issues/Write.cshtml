@@ -1,0 +1,62 @@
+﻿@using issuemoa.Models.Issues;
+@model NewForumModel
+@{
+    ViewBag.Title = "Write";
+}
+
+<div id="wrapper" style="max-width:1090px; width:100%; margin:0 auto; background:white">
+    <div id="big-issue-pic">
+        <img src="~/Images/@Model.SubNavBarModel.ImageUrl" width="1090" height="639">
+    </div>
+
+    <div id="issue-container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="pure-menu pure-menu-open pure-menu-horizontal">
+                <ul>
+                    <li class="pure-menu-selected">@Html.ActionLink(@Model.SubNavBarModel.IssueName, "Index", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("관련기사", "Articles", new { itemId = @Model.SubNavBarModel.ArticleBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("토론의 장", "Discussion", new { itemId = @Model.SubNavBarModel.DiscussionBoardId }, new { @class = "navbar-brand" })</li>
+                    <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { itemId = @Model.SubNavBarModel.IssueId }, new { @class = "navbar-brand" })</li>
+                </ul>
+            </div>
+        </div>
+        <div id="context-area">
+            <div id="input-area">
+                @if (Session["UserId"] != null)
+                { 
+                    using (Html.BeginForm("Write", "Issues", FormMethod.Post, new { @class = "pure-form" }))
+                    {
+                        @Html.HiddenFor(x => x.BoardId)
+
+                        <div id="write">
+                            <p>제목: </p>
+                            @Html.TextBoxFor(x => x.Title, new { @class = "pure-input-1" })
+                            <p>내용: </p>
+                            @Html.TextAreaFor(x => x.Text, new { @Id = "write-text-Box", @rows = "30" })
+                        </div>
+                        <br/>
+                        <div class="pure-g">
+                            <div class="pure-u-21-24"></div>
+                            <input type="submit" value="글쓰기" />
+                        </div>
+                        <br/>
+                    }
+                }
+                else
+                {
+                    <script>
+                        $(document).ready(function () {
+
+                            $('#login_form').hide();
+                            $('#window_cover').show();
+                            $('#sign_up_in_main').show(300, function () { $('#login_form').show(); });
+                            $('body').css('overflow', 'hidden');
+
+                        });
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+    @Styles.Render("~/Content/forum.css")

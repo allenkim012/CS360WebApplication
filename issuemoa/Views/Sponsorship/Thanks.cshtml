@@ -1,0 +1,19 @@
+﻿@using issuemoa.Models.Sponsorship;
+@model ThanksModel
+@Styles.Render("~/Content/Sponsorship.css")
+
+@{
+    ViewBag.Title = "thanks";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="sponsorship">
+        <div>
+            <img src="~/Images/ThankYou.jpg"></div>
+        <div>
+            @Model.toString() 
+
+        </div>
+    </div>
+}

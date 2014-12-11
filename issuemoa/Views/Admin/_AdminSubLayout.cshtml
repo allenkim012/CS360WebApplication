@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div id="wrapper" style="max-width:1090px; width:100%; min-height:700px; margin:0 auto; background:white">
+
+    <div class="pure-g">
+        <div class="pure-u-1-5" style="background:lemonchiffon; min-height:700px;">
+            <ul style="margin:15px;">
+                <li>@Html.ActionLink("Board Manage", "Board")</li>
+                <li>@Html.ActionLink("Forum Manage", "Forum")</li>
+            </ul>
+        </div>
+        <div class="pure-u-4-5" id="admin-context">
+            <div style="margin:15px;">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+            
+</div>

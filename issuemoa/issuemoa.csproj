@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -120,24 +121,73 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sign\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Controllers\SignController.cs" />
     <Compile Include="Controllers\SponsorshipController.cs" />
+    <Compile Include="DAL\DbInitializer.cs" />
+    <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IssueMoaDB.cs" />
-    <Compile Include="Models\Issues\Class1.cs" />
+    <Compile Include="DAL\IssueMoaDB.cs" />
+    <Compile Include="Migrations\201412100859153_Initialize.cs" />
+    <Compile Include="Migrations\201412100859153_Initialize.Designer.cs">
+      <DependentUpon>201412100859153_Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412100906245_Comment.cs" />
+    <Compile Include="Migrations\201412100906245_Comment.Designer.cs">
+      <DependentUpon>201412100906245_Comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412102340237_RoleTable.cs" />
+    <Compile Include="Migrations\201412102340237_RoleTable.Designer.cs">
+      <DependentUpon>201412102340237_RoleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412102347285_UserRoleTable.cs" />
+    <Compile Include="Migrations\201412102347285_UserRoleTable.Designer.cs">
+      <DependentUpon>201412102347285_UserRoleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Admin\BoardAdminModel.cs" />
+    <Compile Include="Models\Database\Board.cs" />
+    <Compile Include="Models\Database\BoardType.cs" />
+    <Compile Include="Models\Database\Comment.cs" />
+    <Compile Include="Models\Database\Forum.cs" />
+    <Compile Include="Models\Database\Issue.cs" />
+    <Compile Include="Models\Database\IssueSummary.cs" />
+    <Compile Include="Models\Database\PointHistory.cs" />
+    <Compile Include="Models\Database\PointType.cs" />
+    <Compile Include="Models\Database\User.cs" />
+    <Compile Include="Models\Database\UserRole.cs" />
+    <Compile Include="Models\Global\SessionModel.cs" />
+    <Compile Include="Models\Global\PasswordHash.cs" />
+    <Compile Include="Models\Global\UserModel.cs" />
+    <Compile Include="Models\Global\BoardModel.cs" />
+    <Compile Include="Models\Issues\CommentModel.cs" />
+    <Compile Include="Models\Issues\ForumModel.cs" />
+    <Compile Include="Models\Global\TopIssue.cs" />
+    <Compile Include="Models\Home\HomeModel.cs" />
+    <Compile Include="Models\Issues\IssueModel.cs" />
+    <Compile Include="Models\Issues\NewForumModel.cs" />
+    <Compile Include="Models\Issues\SubNavBarModel.cs" />
+    <Compile Include="Models\Database\Role.cs" />
+    <Compile Include="Models\Sponsorship\SponsorshipModel.cs" />
+    <Compile Include="Models\Sponsorship\ThanksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\discussion.css" />
+    <Content Include="Content\flipclock.css" />
+    <Content Include="Content\forum.css" />
     <Content Include="Content\home.css" />
     <Content Include="Content\pure-min.css" />
     <Content Include="Content\Sponsorship.css" />
@@ -145,15 +195,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\temp_logo.png" />
-    <Content Include="Images\개인정보.jpg" />
-    <Content Include="Images\부정선거.jpg" />
-    <Content Include="Images\세월호.jpg" />
+    <Content Include="Images\home\issues\개인정보.jpg" />
+    <Content Include="Images\home\issues\부정선거.jpg" />
+    <Content Include="Images\home\issues\세월호.jpg" />
+    <Content Include="Images\others\bx_loader.gif" />
+    <Content Include="Images\others\facebook.png" />
+    <Content Include="Images\others\hate.png" />
+    <Content Include="Images\others\like.png" />
+    <Content Include="Images\others\temp_logo.png" />
+    <Content Include="Images\others\Twitter-icon.png" />
+    <Content Include="Images\ThankYou.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -171,19 +230,38 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sponsorship\Index.cshtml" />
-    <Content Include="Views\Issues\Issues.cshtml" />
-    <Content Include="Views\Shared\_IssuesLayout.cshtml" />
-    <Content Include="Views\Issues\_ViewStart.cshtml" />
     <Content Include="Views\Issues\Articles.cshtml" />
     <Content Include="Views\Issues\Discussion.cshtml" />
+    <Content Include="Views\Issues\Forum.cshtml" />
+    <Content Include="Views\Sponsorship\Thanks.cshtml" />
+    <Content Include="Views\Issues\Write.cshtml" />
+    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Admin\_AdminSubLayout.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Board.cshtml" />
+    <Content Include="Views\Admin\_ViewStart.cshtml" />
+    <Content Include="Views\Admin\Forum.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201412100859153_Initialize.resx">
+      <DependentUpon>201412100859153_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412100906245_Comment.resx">
+      <DependentUpon>201412100906245_Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412102340237_RoleTable.resx">
+      <DependentUpon>201412102340237_RoleTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412102347285_UserRoleTable.resx">
+      <DependentUpon>201412102347285_UserRoleTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -206,8 +284,7 @@
           <IISUrl>http://localhost:53020/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

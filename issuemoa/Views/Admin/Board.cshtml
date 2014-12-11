@@ -1,0 +1,36 @@
+﻿@using issuemoa.Models.Admin;
+@using issuemoa.Models.Global;
+@model BoardAdminModel
+@{
+    ViewBag.Title = "Board";
+}
+
+<h2>Board Admin</h2>
+
+<br />
+@using(Html.BeginForm())
+{
+    <table class="pure-table">
+        <thead>
+            <tr>
+                <th>Board Id</th>
+                <th>Title</th>
+                <th>#Forums</th>
+                <th>Issue Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Boards.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Boards[i].BoardId</td>
+                    <td>@Html.TextBoxFor(x=>x.Boards[i].NewTitle, new {@Value = Model.Boards[i].Title})</td>
+                    <td>@Model.Boards[i].Forums.Count</td>
+                    <td>@Model.Boards[i].Issue.IssueTitle</td>
+                </tr>
+                @Html.HiddenFor(x=>x.Boards[i].BoardId)
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Save" />
+}
