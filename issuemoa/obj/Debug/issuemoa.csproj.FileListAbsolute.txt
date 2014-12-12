@@ -27,9 +27,9 @@ C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuem
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\bin\EntityFramework.SqlServer.dll
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\bin\EntityFramework.xml
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\bin\EntityFramework.SqlServer.xml
-C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.csprojResolveAssemblyReference.cache
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.Migrations.Initialize.resources
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.csproj.GenerateResource.Cache
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.Migrations.Comment.resources
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.Migrations.RoleTable.resources
 C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.Migrations.UserRoleTable.resources
+C:\Users\Hojune\Source\Workspaces\issuemoa\BuildProcessTemplates\issuemoa\issuemoa\obj\Debug\issuemoa.csprojResolveAssemblyReference.cache

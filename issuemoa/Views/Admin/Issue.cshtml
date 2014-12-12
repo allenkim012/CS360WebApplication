@@ -1,0 +1,43 @@
+﻿@using issuemoa.Models.Admin;
+@using issuemoa.Models.Global;
+@model IssueAdminModel
+@{
+    ViewBag.Title = "Issue Admin";
+}
+
+<h2>Issue Admin</h2>
+
+<br />
+@using (Html.BeginForm())
+{
+    <table class="pure-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Points</th>
+                <th>Top</th>
+                <th>SubTitle</th>
+                <th>Summary</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Issues.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Issues[i].IssueId</td>
+                    <td>@Html.TextBoxFor(x => x.Issues[i].Issue.IssueTitle, new { @style = "width:80px;" })</td>
+                    <td>@Model.Issues[i].Issue.DonatedPoints</td>
+                    <td>@Html.CheckBoxFor(x => x.Issues[i].Issue.IsTopIssue)</td>
+                    <td>@Html.TextBoxFor(x => x.Issues[i].IssueSummary.SummaryTitle, new { @style = "width:100px;" })</td>
+                    <td>@Html.TextAreaFor(x => x.Issues[i].IssueSummary.Summary, new { @style = "width:260px;" })</td>
+                    <td><button type="submit" name="Delete" value=@(i+1)>Delete</button></td>
+                </tr>
+                @Html.HiddenFor(x => x.Issues[i].IssueId)
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Create New Issue", "CreateIssue", null, new { @style = "float:right" })
+}

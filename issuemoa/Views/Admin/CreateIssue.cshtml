@@ -1,0 +1,28 @@
+﻿@using issuemoa.Models.Admin;
+@using issuemoa.Models.Global;
+@model CreateIssueModel
+@{
+    ViewBag.Title = "Issue Admin";
+}
+
+<h2>Issue Admin</h2>
+
+<br />
+@using (Html.BeginForm("CreateIssue", "Admin", FormMethod.Post, new { @class = "pure-form pure-form-stacked" }))
+{
+    <fieldset>
+        <legend>New Issue Information</legend>
+
+        <label for="Title">Title</label>
+        @Html.TextBoxFor(x => x.NewTitle, new { @id = "Title", placeholder = "Issue Title" })
+        <label for="SubTitle">SubTitle</label>
+        @Html.TextBoxFor(x => x.SubTitle, new { @id = "SubTitle", placeholder = "Sub Title" })
+        <label for="DiscussionBoardTitle">Discussion Board Title</label>
+        @Html.TextBoxFor(x => x.DiscussionBoardTitle, new { @id = "DiscussionBoardTitle", placeholder = "Discussion Board Title" })
+        <label for="ArticleBoardTitle">Article Board Title</label>
+        @Html.TextBoxFor(x => x.ArticleBoardTitle, new { @id = "ArticleBoardTitle", placeholder = "Article Board Title" })
+        <label for="Summary">Issue Summary</label>
+        @Html.TextAreaFor(x => x.Summary, new { @id = "Summary", @style = "width:500px; height:300px;", placeholder = "Issue Summary" })
+        <input type="submit" value="Save" />
+    </fieldset>
+}

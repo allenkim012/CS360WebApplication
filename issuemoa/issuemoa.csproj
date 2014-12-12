@@ -156,6 +156,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin\BoardAdminModel.cs" />
+    <Compile Include="Models\Admin\CreateIssueModel.cs" />
+    <Compile Include="Models\Admin\ForumAdminModel.cs" />
+    <Compile Include="Models\Admin\IssueAdminModel.cs" />
     <Compile Include="Models\Database\Board.cs" />
     <Compile Include="Models\Database\BoardType.cs" />
     <Compile Include="Models\Database\Comment.cs" />
@@ -171,10 +174,10 @@
     <Compile Include="Models\Global\UserModel.cs" />
     <Compile Include="Models\Global\BoardModel.cs" />
     <Compile Include="Models\Issues\CommentModel.cs" />
-    <Compile Include="Models\Issues\ForumModel.cs" />
+    <Compile Include="Models\Global\ForumModel.cs" />
     <Compile Include="Models\Global\TopIssue.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
-    <Compile Include="Models\Issues\IssueModel.cs" />
+    <Compile Include="Models\Global\IssueModel.cs" />
     <Compile Include="Models\Issues\NewForumModel.cs" />
     <Compile Include="Models\Issues\SubNavBarModel.cs" />
     <Compile Include="Models\Database\Role.cs" />
@@ -241,6 +244,8 @@
     <Content Include="Views\Admin\Board.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Admin\Forum.cshtml" />
+    <Content Include="Views\Admin\Issue.cshtml" />
+    <Content Include="Views\Admin\CreateIssue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

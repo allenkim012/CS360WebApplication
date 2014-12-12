@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using issuemoa.Models.Global;
 using issuemoa.Models.Database;
+using issuemoa.DAL;
+using System.Data.Entity.Core.Objects;
 
 namespace issuemoa.Controllers
 {
@@ -23,6 +25,7 @@ namespace issuemoa.Controllers
             user.UserName = Convert.ToString(postedValues["username"]);
 	        user.Password = PasswordHash.CreateHash(Convert.ToString(postedValues["password"]));
             user.Email = Convert.ToString(postedValues["email"]);
+            user.PointsGained = 1000;
             userModel.saveUserToDB(user);
             userToSession(new UserModel().users.Last());
             return RedirectToAction("Index", "Home");
@@ -34,6 +37,28 @@ namespace issuemoa.Controllers
             Session["UserName"] = user.UserName;
             Session["PointsGained"] = user.PointsGained;
             Session["PointsDonated"] = user.PointsDonated;
+            using(var db = new IssueMoaDB())
+            {
+                var Roles = (from u in db.UserRoles
+                             where u.UserId == user.UserId
+                             select u.Role.Description).ToList();
+                Session["Roles"] = Roles;
+                DateTime startDate = DateTime.Today.Date;
+                DateTime endDate = startDate.AddDays(1);
+                PointHistory TodayLoginPoint = (from p in db.PointHistories
+                                                where p.UserId == user.UserId && (p.ChangeDate >= startDate && p.ChangeDate < endDate) && (p.PointTypeId == 1 || p.PointTypeId == 6)
+                                                select p).FirstOrDefault();
+                if(TodayLoginPoint == null)
+                {
+                    db.PointHistories.Add(new PointHistory { ChangeAmount = 500, PointTypeId = 1, UserId = user.UserId });
+                    User ThisUser = (from u in db.Users
+                                     where u.UserId == user.UserId
+                                     select u).First();
+                    ThisUser.PointsGained += 500;
+                    Session["PointsGained"] = ThisUser.PointsGained;
+                    db.SaveChanges();
+                }
+            }
         }
 
         [HttpPost]

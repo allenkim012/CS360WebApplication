@@ -51,6 +51,11 @@ namespace issuemoa.Models.Global
                 using (var db = new IssueMoaDB())
                 {
                     db.Users.Add(user);
+                    UserRole ThisUserRole = new UserRole();
+                    ThisUserRole.UserId = user.UserId;
+                    ThisUserRole.RoleId = 3;
+                    db.UserRoles.Add(ThisUserRole);
+                    db.PointHistories.Add(new PointHistory { ChangeAmount = 1000, PointTypeId = 6, UserId = user.UserId });
                     db.SaveChanges();
                 }
                 return true;
@@ -68,6 +73,28 @@ namespace issuemoa.Models.Global
             HttpContext.Current.Session["UserName"] = user.UserName;
             HttpContext.Current.Session["PointsGained"] = user.PointsGained;
             HttpContext.Current.Session["PointsDonated"] = user.PointsDonated;
+            using (var db = new IssueMoaDB())
+            {
+                var Roles = (from u in db.UserRoles
+                             where u.UserId == user.UserId
+                             select u.Role.Description).ToList();
+                HttpContext.Current.Session["Roles"] = Roles;
+            }
+        }
+
+        public static bool IsInRole(string role)
+        {
+            if ((List<string>)HttpContext.Current.Session["Roles"] == null)
+                return false;
+            List<string> Roles = (List<string>)HttpContext.Current.Session["Roles"];
+            foreach(string Role in Roles)
+            {
+                if (Role == role)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

@@ -13,7 +13,7 @@ namespace issuemoa.DAL
         {
             var Users = new List<User>
             {
-                new User{UserName = "admin", Name = "유호준", Password = PasswordHash.CreateHash("12345678"), Email = "soy0803@gmail.com", PointsGained = 1000, PointsDonated=300},
+                new User{UserName = "admin", Name = "유호준", Password = PasswordHash.CreateHash("'k`uV(ZQn9dQ7D<"), Email = "soy0803@gmail.com", PointsGained = 1000, PointsDonated=300},
                 new User{UserName = "test1", Name = "test1", Password = PasswordHash.CreateHash("12345678"), Email = "test1@gmail.com", PointsGained = 1000, PointsDonated=300},
                 new User{UserName = "test2", Name = "test2", Password = PasswordHash.CreateHash("12345678"), Email = "test2@gmail.com", PointsGained = 1000, PointsDonated=300}
             };
@@ -112,13 +112,17 @@ namespace issuemoa.DAL
                 new PointType{Type = "글쓰기"},
                 new PointType{Type = "댓글"},
                 new PointType{Type = "광고"},
-                new PointType{Type = "기부"}
+                new PointType{Type = "기부"},
+                new PointType{Type = "회원가입"}
             };
             PointType.ForEach(p => db.PointTypes.Add(p));
             db.SaveChanges();
 
             var PointHistory = new List<PointHistory>
             {
+                new PointHistory{UserId = 1, PointTypeId=6, ChangeAmount=1000},
+                new PointHistory{UserId = 2, PointTypeId=6, ChangeAmount=1000},
+                new PointHistory{UserId = 3, PointTypeId=6, ChangeAmount=1000},
                 new PointHistory{UserId = 1, PointTypeId=1, ChangeAmount=500},
                 new PointHistory{UserId = 1, PointTypeId=2, ChangeAmount=500},
                 new PointHistory{UserId = 1, PointTypeId=3, ChangeAmount=500},

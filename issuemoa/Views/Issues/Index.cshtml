@@ -1,4 +1,4 @@
-﻿@using issuemoa.Models.Issues;
+﻿@using issuemoa.Models.Global;
 @model IssueModel
 
 @{
@@ -40,8 +40,15 @@
         <hr />
         <div id="point-area">
             <h2>기부 포인트 현황</h2>
-            @Model.Issue.DonatedPoints
+            <span id="issue-donated-total" style="position:relative;top:-25px;"></span>
         </div>
         <hr />
     </div>
 </div>
+@Styles.Render("~/Content/flipclock.css")
+@Scripts.Render("~/Scripts/flipclock.js")
+<script>
+    var totalDonated = new FlipClock($('#issue-donated-total'), @Model.Issue.DonatedPoints, {
+        clockFace: 'Counter'
+    });
+</script>

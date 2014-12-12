@@ -385,7 +385,7 @@ table {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
 }
 .pure-button::-moz-focus-inner {
     padding: 0;
@@ -402,9 +402,10 @@ table {
     *color: #444;
     border: 1px solid #999;
     border: 0 rgba(0, 0, 0, 0);
-    background-color: #E6E6E6;
+    background-color: #5E36D2;
     text-decoration: none;
-    border-radius: 2px
+    border-radius: 2px;
+    color: white;
 }
 .pure-button-hover, .pure-button:hover, .pure-button:focus {
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000', GradientType=0);
@@ -1142,4 +1143,11 @@ table {
     margin-left: -400px;
     position: relative;
     left: 50%;
+}
+button
+{
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(28, 184, 65);
 }

@@ -118,6 +118,10 @@
                     }
                     <li class="pure-menu-selected">@Html.ActionLink("후원하기", "Index", "Sponsorship", new { area = "" }, new { @class = "navbar-brand" })</li>
                     <li class="pure-menu-selected">@Html.ActionLink("오늘의 이슈", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    @if (issuemoa.Models.Global.UserModel.IsInRole("Administrator"))
+                    { 
+                        <li class="pure-menu-selected">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    }
                 </ul>
                 <span id="userContainer">
                     <span class="signin">로그인 / 가입하기</span>
