@@ -53,8 +53,8 @@ namespace issuemoa.DAL
             var IssueSummaries = new List<IssueSummary>
             {
                 new IssueSummary{SummaryTitle = "세월호 침몰사고", Summary = "세월호 침몰 사고(한자: 世越號沈沒事故)는 2014년 4월 16일 오전 8시 48분경 대한민국 전라남도 진도군 조도면 부근 해상에서 청해진해운 소속의 인천발 제주행 연안 여객선 세월호가 전복되어 침몰한 사고이다. 2014년 4월 18일에 세월호는 완전히 침몰하였다. 이 사고로 탑승인원 476명 중 295명이 사망하고 9명이 실종되었다.", IssueId = 1},
-                new IssueSummary{SummaryTitle = "2012 대선 부정선거", Summary = "여기는 뭘 써야될지 모르겠다", IssueId = 2},
-                new IssueSummary{SummaryTitle = "카카오톡 감청사건", Summary = "그러하다...", IssueId = 3}
+                new IssueSummary{SummaryTitle = "2012 대선 부정선거", Summary = "박근혜 대통령이 부정선거로 당선이 되었는데 왜 탄핵 안하는지 모르겠다. 고 노무현 대통령이 좀 실수 한게 보였을때 그렇게 난리더니.", IssueId = 2},
+                new IssueSummary{SummaryTitle = "카카오톡 감청사건", Summary = "농협을 포함한 각종 금융사이트에서 개인정보가 누출되는 사건이 일어났다고 하더라. 근데 네이트 때인가부터 이런적이 꾸준히 있어와서 이제 대한민국 국민들은 각 개인정보가 50원에 팔리는 상황이 되었음. 아이티뱅크 이놈들.", IssueId = 3}
             };
             IssueSummaries.ForEach(i => db.IssueSummaries.Add(i));
             db.SaveChanges();

@@ -59,7 +59,7 @@
                         <p>@ThisComment.Text</p>
                         if (Session["UserId"] != null)
                         {
-                            if (ThisComment.WriterId == (int)Session["UserId"])
+                            if (ThisComment.WriterId == (int)Session["UserId"] || UserModel.IsInRole("Administrator"))
                             {
                                 <button class="pure-button" name="action" value="@ThisComment.CommentId">지우기</button>
                             }

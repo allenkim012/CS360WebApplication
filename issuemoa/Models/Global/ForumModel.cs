@@ -98,7 +98,7 @@ namespace issuemoa.Models.Global
                 Comment ThisComment = (from c in db.Comments
                                        where c.CommentId == commentId
                                        select c).FirstOrDefault();
-                if(ThisComment != null && UserId == ThisComment.WriterId)
+                if(ThisComment != null && UserId == ThisComment.WriterId || UserModel.IsInRole("Administrator"))
                 {
                     db.Comments.Remove(ThisComment);
                     db.SaveChanges();
